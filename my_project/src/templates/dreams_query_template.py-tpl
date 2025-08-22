@@ -1,0 +1,2 @@
+
+messages.append(HumanMessage(content = r'''{{dreams_cosplay_role}}:「 {{ dreams_message }}」'''))

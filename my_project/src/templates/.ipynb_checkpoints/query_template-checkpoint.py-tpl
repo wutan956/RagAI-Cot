@@ -1,0 +1,2 @@
+messages = [HumanMessage(content = r'''{{cosplay_role}}:「 {{ message }}」''')]
+ai_message = llm_runable.invoke(messages) 

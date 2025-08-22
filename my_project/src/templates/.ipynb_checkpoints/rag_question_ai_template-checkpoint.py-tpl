@@ -1,0 +1,29 @@
+from langchain_core.messages import HumanMessage, SystemMessage
+
+# 构建系统提示，包含检索到的文献上下文
+context_texts = []
+{% for context in contexts %}
+context_texts.append(f"""
+参考文献 [{{ loop.index }}]:
+标题: {{ context.paper_title }}
+片段ID: {{ context.chunk_id }}
+相关度得分: {{ context.score }}
+内容: {{ context.text }}
+""")
+{% endfor %}
+
+# 系统消息 - 提供背景知识
+system_prompt = f"""你是一个专业的研究助手，请基于以下检索到的文献片段来回答用户的问题。
+
+检索到的相关文献片段：
+{''.join(context_texts)}
+
+请根据这些文献内容，准确、专业地回答用户的问题。如果文献中没有相关信息，请如实告知。
+"""
+
+messages = [
+    SystemMessage(content=system_prompt),
+    HumanMessage(content = r'''{{cosplay_role}}:「 {{ message }}」''')
+]
+
+ai_message = llm_runable.invoke(messages)

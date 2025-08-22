@@ -1,0 +1,24 @@
+from langchain_core.messages import HumanMessage, SystemMessage
+
+# 构建系统提示
+system_content = "你是一个专业的研究助手，请基于以下检索到的文献片段来回答用户的问题。\n\n检索到的相关文献片段：\n"
+{% for context in contexts %}
+system_content += f"""
+参考文献 [{{ loop.index }}]:
+标题: {{ context.paper_title }}
+片段ID: {{ context.chunk_id }}
+相关度得分: {{ context.score }}
+内容: {{ context.text }}
+"""
+{% endfor %}
+system_content += "\n请根据这些文献内容，准确、专业地回答用户的问题。如果文献中没有相关信息，请如实告知。"
+
+# 用户消息 - 使用字符串拼接避免引号问题
+user_content = "{{cosplay_role}}:" + "「 {{message}} 」"
+
+messages = [
+    SystemMessage(content=system_content),
+    HumanMessage(content=user_content)
+]
+
+ai_message = llm_runable.invoke(messages)
