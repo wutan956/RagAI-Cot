@@ -1,0 +1,16 @@
+com\spongebob\magic_conch_backend\common\vo\PageParam.class
+com\spongebob\magic_conch_backend\DAO\WindowChat.class
+com\spongebob\magic_conch_backend\MagicConchBackendApplication.class
+com\spongebob\magic_conch_backend\service\windowChatService.class
+com\spongebob\magic_conch_backend\config\ChatClientConfig.class
+com\spongebob\magic_conch_backend\common\vo\Result.class
+com\spongebob\magic_conch_backend\DAO\windowChatRepository.class
+com\spongebob\magic_conch_backend\config\RestTemplateConfig.class
+com\spongebob\magic_conch_backend\common\enums\ResultCode.class
+com\spongebob\magic_conch_backend\service\impl\chat\model\GenerateResponse.class
+com\spongebob\magic_conch_backend\config\AiServiceConfig.class
+com\spongebob\magic_conch_backend\service\impl\chat\ChatServiceImpl.class
+com\spongebob\magic_conch_backend\service\windowChatServiceImpl.class
+com\spongebob\magic_conch_backend\controller\chat\ChatController.class
+com\spongebob\magic_conch_backend\service\ChatService.class
+com\spongebob\magic_conch_backend\config\WebConfig.class
