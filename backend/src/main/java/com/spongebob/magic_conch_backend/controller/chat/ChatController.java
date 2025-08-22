@@ -61,8 +61,6 @@ public class ChatController {
     @GetMapping("/text")
     public Result getText(@RequestParam String name)  {
         String text = windowChatService.getTextByName(name);
-//        System.out.println(name);
-//        System.out.println(text);
         return Result.success(text);
     }
 
@@ -70,8 +68,6 @@ public class ChatController {
     // 前端传入json字串，提取里面的name
     @PostMapping("/create")
     public Result createWindow(@RequestParam String name){
-        // 验证是否收到前端发过来的新窗口名字
-//        System.out.println(name);
         // 如果成功，那么开始在数据库创建一个新的行
         windowChatService.createNewWindow(name);
         return Result.success();
@@ -96,9 +92,6 @@ public class ChatController {
             return Result.error(ResultCode.PARAM_INVALID,"prompt不能为空");
         }
         try {
-            // 这个是fastapi结合vllm的，调用 Service 层，获取 AI 的单句回复，把回复塞进 data 字段
-            // String res = chatService.callAiForOneReply(prompt);
-
             // 将prompt和历史会话弄成json类型，一口气传给vllm的模型
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<Message> messages = new ArrayList<>();
@@ -116,7 +109,6 @@ public class ChatController {
                 }
             }
             messages.add(new UserMessage(prompt));
-            // System.out.println(messages);
             // 如果是vllm直接终端启动的话，就换成这个命令, vllm的回复前面有<think> </think> 得去掉
             String res = chatClient.prompt().messages(messages).call().content();
             res = res.replaceFirst("(?s)^.*?</think>\\s*", "");
@@ -140,12 +132,6 @@ public class ChatController {
             System.out.println(safe);
             // 修改数据库
             windowChatService.updateText(text, name);
-
-            // 返回数据给前端,因为里面有公式，所以禁止二次转义
-//            res = res.replace("\\\\(", "\\(")
-//                    .replace("\\\\)", "\\)")
-//                    .replace("\\\\[", "\\[")
-//                    .replace("\\\\]", "\\]");
             result.setData(res);
         } catch (Exception e) {
             // 打印异常堆栈（控制台）
@@ -158,7 +144,6 @@ public class ChatController {
     @DeleteMapping("/delete")
     public void deleteWindow(@RequestBody Map<String, String> body){
         String name = body.get("name");
-        //System.out.println(name);
         windowChatService.deleteWindowByName(name);
     }
 
