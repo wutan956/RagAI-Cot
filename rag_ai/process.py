@@ -7,24 +7,17 @@ from langchain_community.chat_models import ChatOpenAI
 from task_engine_builder.base import TaskEngineBuilder
 from builder_task_step.base import StructuredTaskStepStoryboard
 from openai import OpenAI
-# 初始化模型（放在函数外部，避免重复初始化）
-# llm = ChatOpenAI(
-#     openai_api_base="https://api.siliconflow.cn/v1",
-#     model="deepseek-ai/DeepSeek-R1",
-#     openai_api_key="sk-qbijmznflgshilamptjqmeonrgkvnixgeqbxtpkwcldksfma",
-#     verbose=True,
-#     temperature=0.1,
-#     top_p=0.9,
-# )
+# 主模型使用本地vllm比较快
 llm = ChatOpenAI(
     openai_api_key="EMPTY" ,
     openai_api_base="http://localhost:8001/v1",
     model="/root/autodl-tmp/Hugging-Face/hub/models--deepseek-ai--deepseek-llm-7b-chat/snapshots/afbda8b347ec881666061fa67447046fc5164ec8"
 )
+# 辅助模型采用siliconflow的模型，这里需要更换自己的api-key
 guiji_llm = ChatOpenAI(
     openai_api_base="https://api.siliconflow.cn/v1",
     model="Qwen/Qwen3-Coder-30B-A3B-Instruct",
-    openai_api_key="sk-qbijmznflgshilamptjqmeonrgkvnixgeqbxtpkwcldksfma",
+    openai_api_key="your-key",
     verbose=True,
     temperature=0.1,
     top_p=0.9,
