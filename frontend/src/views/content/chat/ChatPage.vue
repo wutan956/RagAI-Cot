@@ -55,11 +55,6 @@
                 <img src="@/assets/images/user.png" alt="Me">
               </div>
             </div>
-            <!--            <div class="content">-->
-            <!--              {{ message.content }}-->
-            <!--              &lt;!&ndash;              <audio v-if="message.audioUrl" :src="message.audioUrl" controls></audio>&ndash;&gt;-->
-            <!--              &lt;!&ndash; <AudioBase></AudioBase> &ndash;&gt;-->
-            <!--            </div>-->
             <div class="content" :ref="(el) => setContentRef(el, index)" v-html="message.content"></div>
           </div>
         </div>
@@ -103,14 +98,14 @@
                     </el-icon>
                   </el-button>
                 </template>
-                <span>请文字/录音/上传语音回复</span>
+                <span>请文字回复</span>
               </el-popover>
             </div>
           </div>
         </div>
 
         <div class="disclaimer">
-          服务生成的所有内容均由詹总的神奇助手生成，其生成内容的准确性和完整性无法保证，不代表詹总的态度或观点
+          服务生成的所有内容均由神奇助手生成，其生成内容的准确性和完整性无法保证，不代表本人的态度或观点
         </div>
       </div>
     </div>
@@ -156,26 +151,7 @@ import { ElMessageBox } from 'element-plus';
 
 const historyList = ref([
   { title: '欢迎使用', messages: [] }
-  // {
-  //   title: '詹总助手咨询',
-  //   messages: [
-  //     {role: 'assistant', content: '您好！我是詹总的神奇助手，有什么需要帮助的吗？'},
-  //     {role: 'user', content: '是的，我听说詹总很牛逼，特意来请教一下。'},
-  //     {
-  //       role: 'assistant',
-  //       content: '是的，您问对地方了！'
-  //     }
-  //   ]
-  // },
-  // {
-  //   title: '功能还未开发',
-  // },
-  // {
-  //   title: '功能还未开发',
-  // },
-  // {
-  //   title: '功能还未开发',
-  // }
+  
 ]);
 /* 页面初始化时加载所有窗口 */
 const loadWindows = async () => {
@@ -216,9 +192,6 @@ const currentConversation = computed(() => historyList.value[currentConversation
 
 const selectConversation = async (index) => {
   if (index === -1) {
-    // // 让 historyList 为空（如果你确实想清空）
-    // historyList.value= [
-    //   { title: '欢迎使用', messages: [] }];
     return;
   }
 
@@ -282,7 +255,6 @@ const newConversation = async () => {
 const sendMessage = async () => {
   if (userInput.value.trim()) {
     // 添加用户消息
-    // currentConversation.value.messages.push({role: 'user', content: userInput.value});
     const win = currentConversation.value;        // 当前窗口
     win.messages.push({ role: 'user', content: userInput.value }); // 1. 先把用户消息塞进本地列表
 
@@ -300,7 +272,7 @@ const sendMessage = async () => {
 
     const loadingMessage = ref({
       role: 'assistant',
-      content: '詹总助手竭诚为您服务中...',
+      content: '助手竭诚为您服务中...',
       loading: true // 标记为加载状态
     });
     currentConversation.value.messages.push(loadingMessage.value);
@@ -434,13 +406,6 @@ const setContentRef = (el, idx) => {
   const raw = String(currentConversation.value.messages[idx].content);
   el.innerHTML = renderLatex(String(raw));
 };
-
-
-
-
-
-
-
 
 
 

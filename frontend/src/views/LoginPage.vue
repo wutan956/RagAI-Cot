@@ -8,10 +8,10 @@
     </div>
     <div class="content">
       <div class="center-content">
-        <h1>为什么不问问神奇助手呢？</h1>
-        <p>- 关于詹总的丰富知识库 -</p>
+        <h1>为什么不问问助手呢？</h1>
+        <p>- 关于助手的丰富知识库 -</p>
         <button class="magic-button" @click="goToMainPage">
-          <span>召唤詹总助手</span>
+          <span>召唤神奇助手</span>
         </button>
       </div>
     </div>
